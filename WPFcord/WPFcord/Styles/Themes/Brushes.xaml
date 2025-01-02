@@ -4,6 +4,7 @@
     <SolidColorBrush x:Key="NaviPaneButtonBackground" Color="{DynamicResource NaviPaneButtonBackColor}" />
     <SolidColorBrush x:Key="NaviPaneButtonForeground" Color="{DynamicResource NaviPaneButtonForeColor}" />
     <SolidColorBrush x:Key="NaviPaneButtonForeColor.Hover" Color="{DynamicResource NaviPaneButtonForeColor.Hover}" />
+    <SolidColorBrush x:Key="NaviPaneButtonFore" Color="#FF5865F2" />
     <SolidColorBrush x:Key="ListPageBackground" Color="{DynamicResource ListPageBackColor}" />
     <SolidColorBrush x:Key="ListPageItemBackground" Color="{DynamicResource ListPageBackColor}" />
     <SolidColorBrush x:Key="ListPageItemBackground.Hover" Color="{DynamicResource ListPageItemBackColor.Hover}" />

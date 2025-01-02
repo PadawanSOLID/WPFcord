@@ -9,7 +9,7 @@ using WPFcord.Models;
 
 namespace WPFcord.Styles.StyleSelectors
 {
-    public class NaviListViewStyleSelector :StyleSelector
+    public class NaviListBoxStyleSelector :StyleSelector
     {
         public Style NaviItemStyle { get; set; }
         public Style SeparatorStyle { get; set; }

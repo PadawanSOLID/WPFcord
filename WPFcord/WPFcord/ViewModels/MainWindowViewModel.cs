@@ -20,14 +20,14 @@ namespace WPFcord.ViewModels
         {
             NaviItems = new ObservableCollection<NaviListItemBaseModel>
             {
-                new NaviSvgItem() { HoverOrSelectColor = Colors.LightBlue, TipText = "Chats" },
+                new NaviSvgItem() {Path="Discord", HoverOrSelectColor =Color.FromArgb(0xFF,0x58,0x65,0xF2), TipText = "Direct Messages" },
                 new SeparatorItem(),
-                new NaviImageItem(){DefaultColor=Colors.Red},
-                new NaviImageItem(){DefaultColor=Colors.Green},
-                new NaviImageItem(){DefaultColor=Colors.Blue},
-                new ButtonItem(){HoverOrSelectColor=Colors.ForestGreen,TipText="Add Servers"},
-                new NaviSvgItem() { HoverOrSelectColor = Colors.ForestGreen, TipText = "Chats" },
-                new NaviSvgItem() { HoverOrSelectColor = Colors.ForestGreen, TipText = "Chats" },
+                new NaviSvgItem(){Path="Robot", DefaultColor=Colors.Red},
+                new NaviSvgItem(){Path="Discord",DefaultColor=Colors.Green},
+                new NaviSvgItem(){DefaultColor=Colors.Blue},
+                new ButtonItem(){Path="Plus",TipText="Add a Server"},
+                new NaviSvgItem() {Path="ArrowDownToLine",  TipText = "Download Apps" ,},
+                new NaviSvgItem() {Path="SolidCompass",  TipText = "Discover" },
 
             };
         }

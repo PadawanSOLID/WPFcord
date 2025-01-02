@@ -2,7 +2,7 @@
     <Color x:Key="NaviPaneBackColor">#FF1E1F22</Color>
     <Color x:Key="NaviPaneButtonBackColor">#FF313338</Color>
     <Color x:Key="NaviPaneButtonForeColor">#FF23A55A</Color>
-    <Color x:Key="NaviPaneButtonForeColor.Hover">#FF23A55A</Color>
+    <Color x:Key="NaviPaneButtonForeColor.Hover">white</Color>
     <Color x:Key="ListPageBackColor">
         #FF2B2D31
     </Color>

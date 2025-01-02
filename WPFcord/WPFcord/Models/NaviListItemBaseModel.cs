@@ -11,7 +11,7 @@ namespace WPFcord.Models
     {
         public string TipText { get; set; }
 
-        public Color HoverOrSelectColor { get; set; }
+        public Color HoverOrSelectColor { get; set; } = Color.FromArgb(0xFF,0x23,0xA5,0x5A);
 
         public Color DefaultColor { get; set; }
     }

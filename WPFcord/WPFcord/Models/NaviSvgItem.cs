@@ -10,6 +10,6 @@ namespace WPFcord.Models
 {
     public class NaviSvgItem:NaviListItemBaseModel
     {
-        public PathFigure Path { get; set; }
+        public string Path { get; set; }
     }
 }

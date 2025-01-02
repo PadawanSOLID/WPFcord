@@ -5,6 +5,14 @@
     xmlns:local="clr-namespace:WPFcord"
     xmlns:prism="http://prismlibrary.com/">
     <Application.Resources>
-        <ResourceDictionary Source="Styles/Themes/Generic.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Themes/Generic.xaml" />
+                <ResourceDictionary Source="Resources/Geometries.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+          
+
+        </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>
