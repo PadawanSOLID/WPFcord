@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="NaviPaneBackground" Color="{DynamicResource NaviPaneBackColor}" />
+    <SolidColorBrush x:Key="NaviPaneButtonBackground" Color="{DynamicResource NaviPaneButtonBackColor}" />
+    <SolidColorBrush x:Key="NaviPaneButtonForeground" Color="{DynamicResource NaviPaneButtonForeColor}" />
+    <SolidColorBrush x:Key="NaviPaneButtonForeColor.Hover" Color="{DynamicResource NaviPaneButtonForeColor.Hover}" />
+    <SolidColorBrush x:Key="NaviPaneButtonFore" Color="#FF5865F2" />
+    <SolidColorBrush x:Key="ListPageBackground" Color="{DynamicResource ListPageBackColor}" />
+    <SolidColorBrush x:Key="ListPageItemBackground" Color="{DynamicResource ListPageBackColor}" />
+    <SolidColorBrush x:Key="ListPageItemBackground.Hover" Color="{DynamicResource ListPageItemBackColor.Hover}" />
+    <SolidColorBrush x:Key="ListPageItemForeground" Color="{DynamicResource ListPageItemForeColor}" />
+    <SolidColorBrush x:Key="ListPageItemForeground.Hover" Color="{DynamicResource ListPageItemForeColor.Hover}" />
+    <SolidColorBrush x:Key="ListPageItemBackground.Selected" Color="{DynamicResource ListPageItemBackColor.Selected}" />
+</ResourceDictionary>

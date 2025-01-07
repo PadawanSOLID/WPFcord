@@ -1,0 +1,18 @@
+﻿<prism:PrismApplication
+    x:Class="WPFcord.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPFcord"
+    xmlns:prism="http://prismlibrary.com/">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Themes/Generic.xaml" />
+                <ResourceDictionary Source="Resources/Geometries.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+          
+
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>

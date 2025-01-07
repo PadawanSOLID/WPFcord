@@ -1,0 +1,358 @@
+﻿<Window
+    x:Class="WPFcord.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ani="clr-namespace:WPFcord.CustomAnimation"
+    xmlns:converters="clr-namespace:WPFcord.Converters"
+    xmlns:model="clr-namespace:WPFcord.Models"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:styleSelector="clr-namespace:WPFcord.Styles.StyleSelectors"
+    xmlns:templateSelector="clr-namespace:WPFcord.Styles.TemplateSelectors"
+    Width="1280"
+    Height="760"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:StringToPathGeometryConverter x:Key="StringToPathGeometryConverter" />
+        <Style x:Key="DefaultListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Foreground" Value="{DynamicResource NaviPaneButtonForeground}" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Margin" Value="0,3" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="{StaticResource NaviPaneBackground}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="72" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ListBox
+            Padding="0,8"
+            Background="{StaticResource NaviPaneBackground}"
+            BorderThickness="0"
+            ItemsSource="{Binding NaviItems}">
+            <ListBox.ItemContainerStyleSelector>
+                <styleSelector:NaviListBoxStyleSelector>
+                    <styleSelector:NaviListBoxStyleSelector.NaviItemStyle>
+                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border
+                                            Name="Border"
+                                            Padding="{TemplateBinding Padding}"
+                                            CornerRadius="{TemplateBinding Border.CornerRadius}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="4" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border
+                                                    x:Name="mark"
+                                                    Margin="0,21"
+                                                    Background="White"
+                                                    CornerRadius="0,5,5,0"
+                                                    Opacity="0" />
+                                                <Border
+                                                    x:Name="icon"
+                                                    Grid.Column="1"
+                                                    Width="50"
+                                                    Height="50"
+                                                    Background="{DynamicResource NaviPaneButtonBackground}"
+                                                    CornerRadius="25">
+                                                    <Border.RenderTransform>
+                                                        <TranslateTransform x:Name="trans" Y="0" />
+                                                    </Border.RenderTransform>
+                                                    <ContentPresenter />
+                                                </Border>
+                                                <Popup
+                                                    AllowsTransparency="True"
+                                                    HorizontalOffset="10"
+                                                    IsOpen="{TemplateBinding IsMouseOver}"
+                                                    Placement="Right"
+                                                    VerticalOffset="8">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Path
+                                                            Width="10"
+                                                            Height="10"
+                                                            Margin="0,0,-2,0"
+                                                            Data="M10,0 L0,5 L10,10"
+                                                            Fill="Black"
+                                                            Stretch="Uniform" />
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Padding="8"
+                                                            Panel.ZIndex="-1"
+                                                            Background="Black"
+                                                            CornerRadius="4"
+                                                            SnapsToDevicePixels="True">
+                                                            <TextBlock Text="{Binding TipText}" />
+                                                        </Border>
+
+                                                    </Grid>
+
+                                                </Popup>
+                                            </Grid>
+
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="mark" Property="Opacity" Value="1" />
+                                                <Setter TargetName="icon" Property="CornerRadius" Value="18" />
+                                                <Setter TargetName="icon" Property="Background">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="{Binding HoverOrSelectColor}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter TargetName="mark" Property="Margin" Value="0,4" />
+                                                <Setter Property="Foreground" Value="White" />
+                                            </Trigger>
+
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsMouseOver" Value="True" />
+                                                    <Condition Property="IsSelected" Value="False" />
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="Foreground" Value="White" />
+                                                <Setter TargetName="mark" Property="Opacity" Value="1" />
+                                                <Setter TargetName="icon" Property="Background">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="{Binding DataContext.HoverOrSelectColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <MultiTrigger.EnterActions>
+                                                    <BeginStoryboard x:Name="iconHover">
+                                                        <Storyboard>
+                                                            <ani:CornerRadiusAnimation
+                                                                Storyboard.TargetName="icon"
+                                                                Storyboard.TargetProperty="CornerRadius"
+                                                                From="25"
+                                                                To="16"
+                                                                Duration="0:0:0.2" />
+                                                        </Storyboard>
+
+                                                    </BeginStoryboard>
+                                                    <BeginStoryboard x:Name="markHover">
+                                                        <Storyboard>
+                                                            <ThicknessAnimation
+                                                                Storyboard.TargetName="mark"
+                                                                Storyboard.TargetProperty="Margin"
+                                                                To="0,14"
+                                                                Duration="0:0:0.2" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </MultiTrigger.EnterActions>
+                                                <MultiTrigger.ExitActions>
+                                                    <StopStoryboard BeginStoryboardName="iconHover" />
+                                                    <StopStoryboard BeginStoryboardName="markHover" />
+                                                </MultiTrigger.ExitActions>
+
+                                            </MultiTrigger>
+                                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                <BeginStoryboard x:Name="YBSB">
+                                                    <Storyboard>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="trans" Storyboard.TargetProperty="Y">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:.01" Value="2" />
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseUp">
+                                                <StopStoryboard BeginStoryboardName="YBSB" />
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                <StopStoryboard BeginStoryboardName="YBSB" />
+                                            </EventTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </styleSelector:NaviListBoxStyleSelector.NaviItemStyle>
+                    <styleSelector:NaviListBoxStyleSelector.ButtonStyle>
+                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border
+                                            Name="Border"
+                                            Margin="0"
+                                            Padding="{TemplateBinding Padding}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            CornerRadius="{TemplateBinding Border.CornerRadius}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="4" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border
+                                                    x:Name="icon"
+                                                    Grid.Column="1"
+                                                    Width="50"
+                                                    Height="50"
+                                                    Background="{DynamicResource NaviPaneButtonBackground}"
+                                                    ClipToBounds="True"
+                                                    CornerRadius="25">
+                                                    <Border.RenderTransform>
+                                                        <TranslateTransform x:Name="trans" Y="0" />
+                                                    </Border.RenderTransform>
+                                                    <ContentPresenter />
+                                                </Border>
+                                                <Popup
+                                                    AllowsTransparency="True"
+                                                    HorizontalOffset="10"
+                                                    IsOpen="{TemplateBinding IsMouseOver}"
+                                                    Placement="Right"
+                                                    VerticalOffset="8">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Path
+                                                            Width="10"
+                                                            Height="10"
+                                                            Margin="0,0,-2,0"
+                                                            Data="M10,0 L0,5 L10,10"
+                                                            Fill="Black"
+                                                            Stretch="Uniform"
+                                                            StrokeThickness="1" />
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Padding="8"
+                                                            Panel.ZIndex="-1"
+                                                            Background="Black"
+                                                            CornerRadius="4"
+                                                            SnapsToDevicePixels="True">
+                                                            <TextBlock Text="{Binding TipText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Popup>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="icon" Property="CornerRadius" Value="18" />
+                                                <Setter TargetName="icon" Property="Background">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="{Binding DataContext.HoverOrSelectColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter Property="Foreground" Value="White" />
+                                            </Trigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsMouseOver" Value="True" />
+                                                    <Condition Property="IsSelected" Value="False" />
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="Foreground" Value="White" />
+                                                <Setter TargetName="icon" Property="Background">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="{Binding HoverOrSelectColor}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <MultiTrigger.EnterActions>
+                                                    <BeginStoryboard x:Name="iconHover">
+                                                        <Storyboard>
+                                                            <ani:CornerRadiusAnimation
+                                                                Storyboard.TargetName="icon"
+                                                                Storyboard.TargetProperty="CornerRadius"
+                                                                From="25"
+                                                                To="16"
+                                                                Duration="0:0:0.2" />
+                                                        </Storyboard>
+
+                                                    </BeginStoryboard>
+                                                </MultiTrigger.EnterActions>
+                                                <MultiTrigger.ExitActions>
+                                                    <StopStoryboard BeginStoryboardName="iconHover" />
+                                                </MultiTrigger.ExitActions>
+                                            </MultiTrigger>
+                                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                <BeginStoryboard x:Name="YBSB">
+                                                    <Storyboard>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="trans" Storyboard.TargetProperty="Y">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:.01" Value="2" />
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseUp">
+                                                <StopStoryboard BeginStoryboardName="YBSB" />
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                <StopStoryboard BeginStoryboardName="YBSB" />
+                                            </EventTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </styleSelector:NaviListBoxStyleSelector.ButtonStyle>
+                    <styleSelector:NaviListBoxStyleSelector.SeparatorStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border
+                                            Margin="18,5"
+                                            BorderBrush="{DynamicResource NaviPaneButtonBackground}"
+                                            BorderThickness="1" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </styleSelector:NaviListBoxStyleSelector.SeparatorStyle>
+                </styleSelector:NaviListBoxStyleSelector>
+            </ListBox.ItemContainerStyleSelector>
+            <ListBox.ItemTemplateSelector>
+                <templateSelector:NaviListBoxDataTemplateSelector>
+                    <templateSelector:NaviListBoxDataTemplateSelector.NaviImageTemplate>
+                        <DataTemplate DataType="model:NaviImageItem">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </DataTemplate>
+                    </templateSelector:NaviListBoxDataTemplateSelector.NaviImageTemplate>
+                    <templateSelector:NaviListBoxDataTemplateSelector.NaviSvgTemplate>
+                        <DataTemplate DataType="model:NaviSvgItem">
+                            <Path
+                                Width="25"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="{Binding Path, Converter={StaticResource StringToPathGeometryConverter}}"
+                                Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
+                                Stretch="Uniform" />
+                        </DataTemplate>
+                    </templateSelector:NaviListBoxDataTemplateSelector.NaviSvgTemplate>
+                    <templateSelector:NaviListBoxDataTemplateSelector.ButtonTemplate>
+                        <DataTemplate DataType="model:ButtonItem">
+                            <Path
+                                Width="20"
+                                Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="{Binding Path, Converter={StaticResource StringToPathGeometryConverter}}"
+                                Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
+                                Stretch="Uniform" />
+                        </DataTemplate>
+                    </templateSelector:NaviListBoxDataTemplateSelector.ButtonTemplate>
+                </templateSelector:NaviListBoxDataTemplateSelector>
+            </ListBox.ItemTemplateSelector>
+        </ListBox>
+        <ContentControl
+            Grid.Column="1"
+            Panel.ZIndex="-1"
+            prism:RegionManager.RegionName="ContentRegion"
+            Background="Transparent" />
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="NaviPaneBackColor">#FF1E1F22</Color>
+    <Color x:Key="NaviPaneButtonBackColor">#FF313338</Color>
+    <Color x:Key="NaviPaneButtonForeColor">#FF23A55A</Color>
+    <Color x:Key="NaviPaneButtonForeColor.Hover">white</Color>
+    <Color x:Key="ListPageBackColor">
+        #FF2B2D31
+    </Color>
+    <Color x:Key="ListPageItemForeColor">
+        #FF80848E
+    </Color>
+    <Color x:Key="ListPageItemForeColor.Hover">
+        #FFFEFEFE
+    </Color>
+    <Color x:Key="ScrollBarThumbBackColor">
+        #FF1E1F22
+    </Color>
+    <Color x:Key="ListPageItemBackColor">
+        #FF2B2D31
+    </Color>
+    <Color x:Key="ListPageItemBackColor.Hover">
+        #FF35373C
+    </Color>
+    <Color x:Key="ListPageItemBackColor.Selected">
+        #FF404249
+    </Color>
+    <Color x:Key="SeparatorBackColor">
+        #FF35363C
+    </Color>
+</ResourceDictionary>
